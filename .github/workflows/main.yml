@@ -56,9 +56,10 @@ jobs:
           flake8 . --exit-zero --max-complexity=6
 
       - name: Upload python artifacts
+        if: github.ref_name == 'main' && matrix.PythonVersion == '3.8' && matrix.OsType == 'ubuntu-latest'
         uses: actions/upload-artifact@v4
         with:
-          name: python-artifacts-${{ matrix.PythonVersion }}-${{ matrix.OsType }}
+          name: python-artifacts
           path: .
 
       - name: Upload helm artifacts
@@ -85,7 +86,7 @@ jobs:
     - uses: actions/download-artifact@v4
       name: Download python artifacts
       with:
-        name: python-artifacts-${{ matrix.PythonVersion }}-${{ matrix.OsType }}
+        name: python-artifacts
         path: .
 
     - name: Login to Docker Hub
