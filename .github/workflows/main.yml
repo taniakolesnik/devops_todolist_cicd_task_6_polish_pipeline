@@ -58,7 +58,7 @@ jobs:
       - name: Upload python artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: python-artifacts
+          name: python-artifacts-${{ matrix.PythonVersion }}-${{ matrix.OsType }}
           path: .
 
       - name: Upload helm artifacts
@@ -85,7 +85,7 @@ jobs:
     - uses: actions/download-artifact@v4
       name: Download python artifacts
       with:
-        name: python-artifacts
+        name: python-artifacts-${{ matrix.PythonVersion }}-${{ matrix.OsType }}
         path: .
 
     - name: Login to Docker Hub
