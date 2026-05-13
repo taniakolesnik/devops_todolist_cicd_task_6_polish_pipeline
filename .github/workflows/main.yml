@@ -62,14 +62,14 @@ jobs:
           path: .
 
       - name: Upload helm artifacts
-        if: github.ref_name == 'main'
+        if: github.ref_name == 'main' && matrix.PythonVersion == '3.8' && matrix.OsType == 'ubuntu-latest'
         uses: actions/upload-artifact@v4
         with:
           name: helm-artifacts
           path: ${{ github.workspace }}/helm-charts
 
       - name: Upload kind cluster artifact
-        if: github.ref_name == 'main'
+        if: github.ref_name == 'main' && matrix.PythonVersion == '3.8' && matrix.OsType == 'ubuntu-latest'
         uses: actions/upload-artifact@v4
         with:
           name: kind-cluster
