@@ -2,11 +2,32 @@ name: python-deployment
 
 run-name: ${{ github.actor }} - ${{ github.ref_name}} -${{ github.sha }}
 
+
 on:
   push:
     branches: ["main"]
   pull_request:
     branches: ["main"]
+  workflow_dispatch:
+    inputs:
+      python-version:
+        description: The Python version to use
+        required: true
+        type: choice
+        options: ['3.8', '3.9']
+      os-type:
+        description: The operating system to use
+        required: true
+        type: choice
+        options: ['ubuntu-latest', 'windows-latest']
+      message:
+        description: Deployment message
+        required: false
+        type: string
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 env:
   PythonVersion: 3.8
